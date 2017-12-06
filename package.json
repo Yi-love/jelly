@@ -1,0 +1,29 @@
+{
+  "name": "jelly",
+  "version": "1.0.0",
+  "description": "jelly is here",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "jelly"
+  ],
+  "author": "Yi-love",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yi-love/jelly.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Yi-love/jelly/issues"
+  },
+  "homepage": "https://github.com/Yi-love/jelly#readme"
+}
