@@ -5,7 +5,7 @@ const cheerio = require('cheerio');
 
 const HKEX_URL = 'http://www.hkexnews.hk';
 
-function getState( html = '' ){
+function getState(html = ''){
     let $ = cheerio.load(html);
 
     return {
@@ -16,10 +16,16 @@ function getState( html = '' ){
 }
 
 function getTotal($) {
-    let totalHtml = $('#ctl00_lblDisplay').text() || '';
-
+    let totalDom = $('#ctl00_lblDisplay');
+    if ( !totalDom ){
+        return {
+            first: 0,
+            end: 0,
+            count: 0
+        };
+    }
+    let totalHtml = totalDom.text() || '';
     let totalArr = totalHtml.replace(/[^0-9,]/igm ,' ').replace(/\s+/g , ' ').replace(/,/gm,'').trim().split(' ');
-
     if ( totalArr.length < 3 ){
         return {
             first: 0,
@@ -35,8 +41,12 @@ function getTotal($) {
 }
 
 function isNotEmpty($){
+    let manDom = $('#ctl00_gvMain');
+    if ( !manDom ){
+        return false;
+    }
     let emptyDom = $('#ctl00_gvMain tr .arial12black');
-    return emptyDom.length ? false : true;
+    return emptyDom && emptyDom.length ? false : true;
 }
 
 function getIpoList($) {
@@ -66,7 +76,7 @@ function getIpoInformation(ipoDom) {
     return {dateTime,stockCode,stockName,shortText,fileInfo,fileUrl,fileName};
 }
 
-exports.getData = ( html = '' ) =>{
+exports.getData = (html = '') =>{
     let state = getState(html);
     let $ = cheerio.load(html);
     let pagination = getTotal($);
