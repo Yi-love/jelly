@@ -72,7 +72,7 @@ function getDateTime(str = ''){
     time = time[0].split(':');
     if ( time.length === 2 ){
         let now = str.replace(/\d{2,2}:\d{2,2}$/g , '');
-        let nowArr = now.indexOf('/') ? now.split('/') : [];
+        let nowArr = now.indexOf('/') >= 0 ? now.split('/') : [];
 
         if ( nowArr.length !== 3 ){
             return +new Date();
