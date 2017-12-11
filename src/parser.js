@@ -61,12 +61,33 @@ function getIpoList($) {
     return list;
 };
 
+function getDateTime(str = ''){
+    str = ('' + str).replace(/\s*/g,'');
+
+    let time = str.match(/\d{2,2}:\d{2,2}$/g);
+
+    if ( !time || !Array.isArray(time) ){
+        return +new Date();
+    }
+    time = time[0].split(':');
+    if ( time.length === 2 ){
+        let now = str.replace(/\d{2,2}:\d{2,2}$/g , '');
+        let nowArr = now.indexOf('/') ? now.split('/') : [];
+
+        if ( nowArr.length !== 3 ){
+            return +new Date();
+        }
+        return new Date(+nowArr[2] , +nowArr[1] - 1 , +nowArr[0] , +time[0] , +time[1]);
+    }
+    return +new Date();
+}
+
 function getIpoInformation(ipoDom) {
     if ( !ipoDom )
         return {};
     let dataListDom = ipoDom.find('span');
 
-    let dateTime = dataListDom.eq(0).text().trim();
+    let dateTime = getDateTime(dataListDom.eq(0).text().trim());
     let stockCode = dataListDom.eq(1).text().trim();
     let stockName = dataListDom.eq(2).text().trim();
     let shortText = dataListDom.eq(3).text().trim();
