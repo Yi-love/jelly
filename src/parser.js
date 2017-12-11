@@ -77,7 +77,7 @@ function getDateTime(str = ''){
         if ( nowArr.length !== 3 ){
             return +new Date();
         }
-        return new Date(+nowArr[2] , +nowArr[1] - 1 , +nowArr[0] , +time[0] , +time[1]);
+        return +new Date(+nowArr[2] , +nowArr[1] - 1 , +nowArr[0] , +time[0] , +time[1]);
     }
     return +new Date();
 }
