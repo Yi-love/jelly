@@ -1,6 +1,6 @@
 'use strict';
 
-const request = require('../lib/request');
+const ajiax = require('ajiax');
 const util = require('../lib/util');
 const config = require('./config');
 const parser = require('./parser');
@@ -123,10 +123,10 @@ class Jelly {
             .then(this.loadFullData.bind(this));
     }
     fristLoad(){
-        return request.get(config.JELLY_URL);
+        return ajiax.get(config.JELLY_URL);
     }
     loadData(data){
-        return request.post({url: config.JELLY_URL,data});
+        return ajiax.post({url: config.JELLY_URL,data});
     }
     loadFullData(){
         if ( this.isFull ){
