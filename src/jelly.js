@@ -1,6 +1,6 @@
 'use strict';
 
-const ajiax = require('ajiax');
+const ajiax = require('@cray/ajiax');
 const util = require('../lib/util');
 const config = require('./config');
 const parser = require('./parser');

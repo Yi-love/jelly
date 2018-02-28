@@ -1,5 +1,5 @@
 {
-  "name": "jelly",
+  "name": "@cray/jelly",
   "version": "1.0.6",
   "description": "jelly is here",
   "main": "index.js",
@@ -12,7 +12,7 @@
   "author": "Yi-love",
   "license": "ISC",
   "dependencies": {
-    "ajiax": "git+https://github.com/Yi-love/ajiax.git#v1.0.2",
+    "@cray/ajiax": "^1.0.3",
     "cheerio": "^1.0.0-rc.2"
   },
   "directories": {
