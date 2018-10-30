@@ -4,7 +4,7 @@ const {getDateInformation , getRandomInt} = require('../lib/util');
 
 let dateInfo = getDateInformation(Date.now());
 
-exports.JELLY_URL = 'http://www.hkexnews.hk/listedco/listconews/advancedsearch/search_active_main_c.aspx';
+exports.JELLY_URL = 'http://www3.hkexnews.hk/listedco/listconews/advancedsearch/search_active_main_c.aspx';
 
 exports.JELLY_POST_OPTIONS = {
     __VIEWSTATE: '',
