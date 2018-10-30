@@ -1,6 +1,6 @@
 {
   "name": "@cray/jelly",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "jelly is here",
   "main": "index.js",
   "scripts": {
