@@ -47,12 +47,38 @@ function parseList(list = []){
     return {list: arr , perfect: arr.length === list.length};
 }
 /**
+ *获取格式化日期
+ *
+ * @param {string} [str='']
+ * @returns
+ */
+function getDateTime(str = ''){
+    str = ('' + str).replace(/\s*/g,'');
+
+    let time = str.match(/\d{2,2}:\d{2,2}$/g);
+
+    if ( !time || !Array.isArray(time) ){
+        return +new Date();
+    }
+    time = time[0].split(':');
+    if ( time.length === 2 ){
+        let now = str.replace(/\d{2,2}:\d{2,2}$/g , '');
+        let nowArr = now.indexOf('/') >= 0 ? now.split('/') : [];
+
+        if ( nowArr.length !== 3 ){
+            return +new Date();
+        }
+        return +new Date(+nowArr[2] , +nowArr[1] - 1 , +nowArr[0] , +time[0] , +time[1]);
+    }
+    return +new Date();
+}
+/**
  * 获取新股数据
  * @param {*} stock 
  */
 function parseIPOStockInfo(stock){
     try{
-        let dateTime = stock.DATE_TIME;
+        let dateTime = getDateTime(stock.DATE_TIME);
         let stockCode = stock.STOCK_CODE;
         let stockName = stock.STOCK_NAME;
         let shortText = (stock.SHORT_TEXT || '').replace('<br/>' , '');
