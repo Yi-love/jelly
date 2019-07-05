@@ -1,7 +1,7 @@
 'use strict';
 const URL = require('url').URL;
 const request = require('request');
-const {HKEX_URL, JELLY_1_URL , JELLY_7_URL} = require('./config');
+const {HKEX_URL, JELLY_1_URL , JELLY_7_URL , FILTER_SHORT_FILE_NAME} = require('./config');
 
 /**
 * [发起请求Promise]
@@ -26,10 +26,9 @@ function requestPromise(options){
  *  获取上市ipo文件
  * @param {*} week 
  */
-function getPreList(week = true){
-    return requestPromise({uri:week ? JELLY_7_URL : JELLY_1_URL , timeout: 15 * 1000})
-        .then(parseResponse)
-        .then(parseList)
+function getPreList(week = true , options = {}){
+    options = Object.assign({uri:week ? JELLY_7_URL : JELLY_1_URL , timeout: 15 * 1000} , options);
+    return requestPromise(options).then(parseResponse).then(parseList);
 }
 /**
  * 获取数据列表
@@ -40,7 +39,8 @@ function parseList(list = []){
 
     for( let i = 0 ; i < list.length ; i++ ){
         let stock = parseIPOStockInfo(list[i]);
-        if ( stock ){
+        //过滤公開招股文件
+        if ( stock && !(new RegExp(FILTER_SHORT_FILE_NAME)).test(stock.shortText) ){
             arr.push(stock);
         }
     }
