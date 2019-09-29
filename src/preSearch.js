@@ -1,25 +1,23 @@
 'use strict';
 const URL = require('url').URL;
-const request = require('request');
+const ajiax = require('@cray/ajiax');
 const {HKEX_URL, JELLY_1_URL , JELLY_7_URL , FILTER_SHORT_FILE_NAME} = require('./config');
 
 /**
 * [发起请求Promise]
 */
 function requestPromise(options){
-    return new Promise((resolve , reject)=>{
-        request(options , (error , response , body)=>{
-            if (!error && response.statusCode == 200) {
-                let result = {};
-                try{
-                    result = JSON.parse(body);
-                }catch(err){
-                    return reject('@cray/jelly response data parse error.');
-                }
-                return resolve(result.result || '[]');
+    return ajiax.get(options).then((response)=>{
+        if (response.statusCode == 200) {
+            let result = {};
+            try{
+                result = JSON.parse(response.body);
+            }catch(err){
+                return Promise.reject('@cray/jelly response data parse error.');
             }
-            return reject(error);
-        });
+            return Promise.resolve(result.result || '[]');
+        }
+        return Promise.reject(error);
     });
 }
 /**
@@ -27,7 +25,7 @@ function requestPromise(options){
  * @param {*} week 
  */
 function getPreList(week = true , options = {}){
-    options = Object.assign({uri:week ? JELLY_7_URL : JELLY_1_URL , timeout: 15 * 1000} , options);
+    options = Object.assign({uri:week ? JELLY_7_URL : JELLY_1_URL , timeout: 15 * 1000 , resolveWithFullResponse: true} , options);
     return requestPromise(options).then(parseResponse).then(parseList);
 }
 /**
