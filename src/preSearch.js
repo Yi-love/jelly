@@ -77,8 +77,8 @@ function getDateTime(str = ''){
 function parseIPOStockInfo(stock){
     try{
         let dateTime = getDateTime(stock.DATE_TIME);
-        let stockCode = stock.STOCK_CODE;
-        let stockName = stock.STOCK_NAME;
+        let stockCode = stock.STOCK_CODE.replace('<br/>' , '_');
+        let stockName = stock.STOCK_NAME.replace('<br/>' , '_');
         let shortText = (stock.SHORT_TEXT || '').replace('<br/>' , '');
         let fileInfo = stock.FILE_INFO;
         let fileUrl = new URL(stock.FILE_LINK , HKEX_URL).href;
